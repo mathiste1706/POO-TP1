@@ -11,7 +11,7 @@ public class TestGaulois {
 		Romain minus=new Romain("Minus", 6);
 		
 		System.out.println(asterix.getNom());
-		asterix.parler("Bonjour Ã  tous");
+		asterix.parler("Bonjour a  tous");
 		minus.parler("UN GAU... UN GAUGAU...");
 		/*for (int i=0; i<2;i++) {
 			minus.recevoirCoup(3);
