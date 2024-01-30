@@ -23,6 +23,16 @@ public class TestSites {
 		 camp.ajouterSoldat(new Soldat("Milexcus", 2, Grade.SOLDAT));
 		 camp.ajouterSoldat(new Soldat("Tullius Octopus", 2, Grade.TESSERARIUS));
 		 camp.ajouterSoldat(new Soldat("Ballondebaudrus", 3, Grade.OPTIO));
+		 
+		 village.afficherVillage();
+		 camp.afficherCamp();
+		 
+		 village.changerChef(new Gaulois("Abraracourcix", 5));
+		 camp.changerCommandant(new Soldat("Briseradius", 4, Grade.SOLDAT));
+		 camp.changerCommandant(new Soldat("Chorus", 4, Grade.CENTURION));
+		 
+		 System.out.println("chef: "+village.getChef().getNom());
+		 System.out.println("commandant: "+camp.getCenturion().getNom());
 	}
 
 }
