@@ -18,11 +18,11 @@ protected abstract String donnerAuteur();
 
 public void parler(String texte) {
 	String auteur=donnerAuteur();
-	System.out.println(auteur+" "+nom+": "+"\""+texte+"\".");
+	System.out.println("Le "+auteur+" "+nom+": "+"\""+texte+"\".");
 }
 
 public int frapper(Personnage personnage) {
-	System.out.println("Le "+nom+" envoie un grand coup dans la machoire du "+personnage.donnerAuteur()+" "+personnage.getNom());
+	System.out.println("Le "+donnerAuteur()+" "+nom+" envoie un grand coup dans la machoire du "+personnage.donnerAuteur()+" "+personnage.getNom());
 	return (force/3);
 }
 

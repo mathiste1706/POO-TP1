@@ -2,6 +2,7 @@ package test_fonctionnel;
 
 import personnages.Gaulois;
 import personnages.Romain;
+import personnages.Druide;
 
 public class TestGaulois {
 
@@ -19,7 +20,11 @@ public class TestGaulois {
 		for (int i=0; i<3;i++) {
 		forceCoup=asterix.frapper(minus);
 		minus.recevoirCoup(forceCoup);
+		
 	}
+		
+		Druide panoramix=new Druide("Panoramix", 2);
+		panoramix.concoterPotion(3);
 		
 
 	}

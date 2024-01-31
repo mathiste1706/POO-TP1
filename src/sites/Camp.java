@@ -12,7 +12,7 @@ public Camp(Soldat centurion) {
 	this.centurion=centurion;
 	listeSoldats[0]=centurion;
 	
-	System.out.println("Le romain "+centurion.getNom()+" : \"Je suis en charge de creer un nouveau camp romain\".");
+	centurion.parler("Je suis en charge de creer un nouveau camp romain");
 }
 
 public Soldat getCenturion(){
@@ -29,11 +29,11 @@ public void ajouterSoldat(Soldat soldat) {
 	}
 		
 		if (estInsere) {
-			System.out.println("Le romain " + soldat.getNom() + " : \" Je mets mon epee au service de Rome dans le camp dirige par " 
-		+centurion.getNom()+". \". " );
+			soldat.parler(" Je mets mon epee au service de Rome dans le camp dirige par " +centurion.getNom());
 		}
 		else {
-			System.out.println("Le romain " + centurion.getNom() + " : \" Desole " + soldat.getNom()+" notre camp est complet ! \"." );
+			centurion.parler(" Desole " + soldat.getNom()+" notre camp est complet !");
+		
 		}
 
 }
@@ -53,13 +53,13 @@ public void afficherCamp() {
 public Soldat changerCommandant(Soldat nvCenturion) {
 	Soldat oldCenturion=null;
 	if (nvCenturion.getGrade()==Grade.CENTURION) {
-		System.out.println("Le romain "+nvCenturion.getNom()+ ": \" Moi "+nvCenturion.getNom()+" je prend la direction du camp.\"");
+		nvCenturion.parler("Moi "+nvCenturion.getNom()+" je prend la direction du camp.");
 		oldCenturion=centurion;
 		centurion=nvCenturion;
 		listeSoldats[0]=centurion;
 	}
 	else {
-		System.out.println("Le romain "+nvCenturion.getNom()+ ":\" Je ne suis pas suffisamment grade pour prendre la direction du camp romain.\"");
+		nvCenturion.parler(" Je ne suis pas suffisamment grade pour prendre la direction du camp romain.");
 	}
 	return oldCenturion;
 	}
