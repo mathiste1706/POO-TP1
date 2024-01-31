@@ -19,5 +19,14 @@ public class Druide extends Gaulois {
 		forcePotion=random.nextInt((6-2)+1)+2;
 		parler("J'ai concocté "+quantite+ " doses de potion magique. Elle a une force de "+forcePotion);
 	}
+	
+	public void donnerPotion(Gaulois gaulois) {
+		String paroles;
+		quantite--;
+		if (gaulois.getNom().equals("Obelix")){
+			paroles="Non, Obélix Non !... Et tu le sais très bien !";
+		}
+		paroles="Tiens "+gaulois.getNom() +" un peu de potion magique.";
+	}
 
 }
