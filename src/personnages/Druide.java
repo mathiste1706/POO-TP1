@@ -26,7 +26,10 @@ public class Druide extends Gaulois {
 		if (gaulois.getNom().equals("Obelix")){
 			paroles="Non, Obélix Non !... Et tu le sais très bien !";
 		}
-		paroles="Tiens "+gaulois.getNom() +" un peu de potion magique.";
+		else {
+			paroles="Tiens "+gaulois.getNom() +" un peu de potion magique.";
+		}
+		parler(paroles);
 	}
 
 }
