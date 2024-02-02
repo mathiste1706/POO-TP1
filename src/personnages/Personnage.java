@@ -9,6 +9,14 @@ public String getNom() {
 	return nom;
 }
 
+public int getForce() {
+	return force;
+}
+
+public void setForce(int force) {
+	this.force=force;
+}
+
 public Personnage(String nom, int force){
 	this.nom=nom;
 	this.force=force;
@@ -22,8 +30,8 @@ public void parler(String texte) {
 }
 
 public int frapper(Personnage personnage) {
-	System.out.println("Le "+donnerAuteur()+" "+nom+" envoie un grand coup dans la machoire du "+personnage.donnerAuteur()+" "+personnage.getNom());
-	return (force/3);
+	System.out.println("Le "+donnerAuteur()+" "+nom+" envoie un grand coup de force "+force+ " dans la machoire du "+personnage.donnerAuteur()+" "+personnage.getNom());
+	return (force);
 }
 
 public void recevoirCoup(int forceCoup) {
@@ -37,5 +45,14 @@ public void recevoirCoup(int forceCoup) {
 	else {
 		parler("J'abandonne...");
 	}
+}
+public boolean estATerre() {
+	if (force>0) {
+		return false;
+	}
+	else {
+		return true;
+	}
+	
 }
 }
