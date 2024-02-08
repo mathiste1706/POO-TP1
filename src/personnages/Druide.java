@@ -15,14 +15,16 @@ public class Druide extends Gaulois {
 		this.quantite=quantite;
 	}
 	
-	public void concoterPotion(int quantite) {
+	public String concoterPotion(int quantite) {
+		String texte="";
 		Random random=new Random();
 		setForcePotion(random.nextInt((6-2)+1)+2);
-		parler("J'ai concocte "+quantite+ " doses de potion magique. Elle a une force de "+getForcePotion());
+		texte=parler("J'ai concocte "+quantite+ " doses de potion magique. Elle a une force de "+getForcePotion());
 		setQuantite(3);
+		return texte;
 	}
 	
-	public void donnerPotion(Gaulois gaulois) {
+	public String donnerPotion(Gaulois gaulois) {
 		String paroles;
 		if (gaulois.getNom().equals("Obelix")){
 			paroles="Non, Obelix Non !... Et tu le sais tres bien !";
@@ -36,7 +38,7 @@ public class Druide extends Gaulois {
 		else {
 			paroles="Desole "+ gaulois.getNom()+ " il n'y a plus une seule goutte de potion";
 		}
-		parler(paroles);
+		return parler(paroles);
 	}
 
 }

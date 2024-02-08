@@ -28,16 +28,16 @@ public void recevoirPotion(double forcePotion) {
 	
 }
 @Override
-public int frapper(Personnage personnage) {
+public String frapper(Personnage personnage) {
 	
 	int forceCoup=(int)(getForce()*forcePotion);
 	if (forcePotion>1) {
 		forcePotion-=0.5;
 		setForcePotion(forcePotion);
 	}
-	System.out.println("Le "+donnerAuteur()+" "+getNom()+" envoie un grand coup de force "+forceCoup+ 
-			" dans la machoire du "+personnage.donnerAuteur()+" "+personnage.getNom());
-	return (forceCoup);
+	recevoirCoup(forceCoup);
+	return "Le "+donnerAuteur()+" "+getNom()+" envoie un grand coup de force "+forceCoup+ 
+			" dans la machoire du "+personnage.donnerAuteur()+" "+personnage.getNom();
 }
 }
 

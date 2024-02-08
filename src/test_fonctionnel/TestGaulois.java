@@ -2,16 +2,15 @@ package test_fonctionnel;
 
 import personnages.Gaulois;
 import personnages.Grade;
-import personnages.Plastron;
 import personnages.Soldat;
-import personnages.Bouclier;
-import personnages.Casque;
 import personnages.Druide;
+import personnages.Equipement;
 
 public class TestGaulois {
 
 	public static void main(String[] args) {
-		int forceCoup;
+		String texte="";
+		
 		Gaulois asterix = new Gaulois("Asterix", 5);
 		Gaulois obelix=new Gaulois("Obelix", 15);
 		Gaulois assurancetourix =new Gaulois ("Assurancetourix", 2);
@@ -19,29 +18,35 @@ public class TestGaulois {
 		Gaulois agecanonix =new Gaulois("Agecanonix", 1);
 		Soldat minus=new Soldat("Minus", 6, Grade.SOLDAT);
 		
-		minus.equiper(new Bouclier());
-		minus.equiper(new Casque());
-		minus.equiper(new Plastron());
+		minus.equiper(Equipement.BOUCLIER);
+		minus.equiper(Equipement.CASQUE);
+		minus.equiper(Equipement.PLASTRON);
 		
 		Druide panoramix=new Druide("Panoramix", 2);
-		panoramix.concoterPotion(3);
-		panoramix.donnerPotion(asterix);
-		panoramix.donnerPotion(obelix);
-		panoramix.donnerPotion(assurancetourix);
-		panoramix.donnerPotion(abraracourcix);
-		panoramix.donnerPotion(agecanonix);
+		texte+=panoramix.concoterPotion(3);
+		texte+="\n";
+		texte+=panoramix.donnerPotion(asterix);
+		texte+="\n";
+		texte+=panoramix.donnerPotion(obelix);
+		texte+="\n";
+		texte+=panoramix.donnerPotion(assurancetourix);
+		texte+="\n";
+		texte+=panoramix.donnerPotion(abraracourcix);
+		texte+="\n";
+		texte+=panoramix.donnerPotion(agecanonix);
+		texte+="\n";
 		
 		System.out.println(asterix.getNom());
-		asterix.parler("Bonjour a tous");
-		minus.parler("UN GAU... UN GAUGAU...");
+		texte+=asterix.parler("Bonjour a tous\n");
+		texte+=minus.parler("UN GAU... UN GAUGAU...\n");
 		/*for (int i=0; i<2;i++) {
 			minus.recevoirCoup(3);
 		}*/
 		
 		boolean boolEstATerre=minus.estATerre();
 		for (int i=0; i<3 && !boolEstATerre;i++) {
-			forceCoup=asterix.frapper(minus);
-			minus.recevoirCoup(forceCoup);
+			texte+=asterix.frapper(minus);
+			System.out.println(texte);
 			boolEstATerre=minus.estATerre();
 			
 		}

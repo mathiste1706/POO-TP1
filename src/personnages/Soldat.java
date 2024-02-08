@@ -37,14 +37,17 @@ public class Soldat extends Romain {
 			}
 		}
 	}
+	
+
 	@Override
-	public void recevoirCoup(int forceCoup) {
+	public String recevoirCoup(int forceCoup) {
 		int armure=0;
 		int degat=0;
+		String texte="";
 		for (int i=0; i<tabEquipement.length;i++) {
 			if (tabEquipement[i]!=null) {
-				armure+=tabEquipement[i].defense;
-				System.out.println("Le "+tabEquipement[i].nom+" absorbe "+tabEquipement[i].defense+" du coup");
+				armure+=tabEquipement[i].getDefense();
+				texte+="Le "+tabEquipement[i].getNom()+" absorbe "+tabEquipement[i].getDefense()+" du coup\n";
 			}
 		}
 		
@@ -57,11 +60,12 @@ public class Soldat extends Romain {
 			setForce(0);
 		}
 		if (getForce()>0) {
-			parler("Aie!");
+			texte+=parler("Aie!");
 		}
 		else {
-			parler("J'abandonne...");
+			texte+=parler("J'abandonne...");
 		}
+		return texte;
 	}
 
 }

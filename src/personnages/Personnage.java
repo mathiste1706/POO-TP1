@@ -24,28 +24,32 @@ public Personnage(String nom, int force){
 
 protected abstract String donnerAuteur();
 
-public void parler(String texte) {
+public String parler(String texte) {
 	String auteur=donnerAuteur();
-	System.out.println("Le "+auteur+" "+nom+": "+"\""+texte+"\".");
+	return "Le "+auteur+" "+nom+": "+"\""+texte+"\".";
 }
 
-public int frapper(Personnage personnage) {
-	System.out.println("Le "+donnerAuteur()+" "+nom+" envoie un grand coup de force "+force+ " dans la machoire du "+personnage.donnerAuteur()+" "+personnage.getNom());
-	return (force);
+public String frapper(Personnage personnage) {
+	String recevoirCoupTexte=recevoirCoup(force);
+	return "Le "+donnerAuteur()+" "+nom+" envoie un grand coup de force "+force+ " dans la machoire du "+personnage.donnerAuteur()+" "
+			+personnage.getNom()+"\n"+ recevoirCoupTexte;
 }
 
-public void recevoirCoup(int forceCoup) {
+public String recevoirCoup(int forceCoup) {
 	force-=forceCoup;
+	String texte="";
 	if (force<0) {
 		force=0;
 	}
 	if (force>0) {
-		parler("Aie!");
+		texte=parler("Aie!");
 	}
 	else {
-		parler("J'abandonne...");
+		texte=parler("J'abandonne...");
 	}
+	return texte;
 }
+
 public boolean estATerre() {
 	if (force>0) {
 		return false;
