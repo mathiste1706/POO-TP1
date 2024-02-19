@@ -24,21 +24,15 @@ public class TestGaulois {
 		
 		Druide panoramix=new Druide("Panoramix", 2);
 		texte+=panoramix.concoterPotion(3);
-		texte+="\n";
 		texte+=panoramix.donnerPotion(asterix);
-		texte+="\n";
 		texte+=panoramix.donnerPotion(obelix);
-		texte+="\n";
 		texte+=panoramix.donnerPotion(assurancetourix);
-		texte+="\n";
 		texte+=panoramix.donnerPotion(abraracourcix);
-		texte+="\n";
 		texte+=panoramix.donnerPotion(agecanonix);
-		texte+="\n";
-		
+
 		System.out.println(asterix.getNom());
-		texte+=asterix.parler("Bonjour a tous\n");
-		texte+=minus.parler("UN GAU... UN GAUGAU...\n");
+		texte+=asterix.parler("Bonjour a tous");
+		texte+=minus.parler("UN GAU... UN GAUGAU...");
 		/*for (int i=0; i<2;i++) {
 			minus.recevoirCoup(3);
 		}*/
@@ -46,11 +40,10 @@ public class TestGaulois {
 		boolean boolEstATerre=minus.estATerre();
 		for (int i=0; i<3 && !boolEstATerre;i++) {
 			texte+=asterix.frapper(minus);
-			System.out.println(texte);
 			boolEstATerre=minus.estATerre();
 			
 		}
 		
-
+		System.out.println(texte);
 	}
 }

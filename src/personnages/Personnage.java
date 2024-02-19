@@ -26,11 +26,11 @@ protected abstract String donnerAuteur();
 
 public String parler(String texte) {
 	String auteur=donnerAuteur();
-	return "Le "+auteur+" "+nom+": "+"\""+texte+"\".";
+	return "Le "+auteur+" "+nom+": "+"\""+texte+"\".\n";
 }
 
 public String frapper(Personnage personnage) {
-	String recevoirCoupTexte=recevoirCoup(force);
+	String recevoirCoupTexte=personnage.recevoirCoup(force);
 	return "Le "+donnerAuteur()+" "+nom+" envoie un grand coup de force "+force+ " dans la machoire du "+personnage.donnerAuteur()+" "
 			+personnage.getNom()+"\n"+ recevoirCoupTexte;
 }

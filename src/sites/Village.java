@@ -17,6 +17,9 @@ public Village(Gaulois chef) {
 public Gaulois getChef(){
 	return chef;
 }
+public Gaulois[] getListeGaulois() {
+	return listeGaulois;
+}
 
 public void ajouterGaulois(Gaulois gaulois) {
 	boolean estInsere=false;

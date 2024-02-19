@@ -35,9 +35,9 @@ public String frapper(Personnage personnage) {
 		forcePotion-=0.5;
 		setForcePotion(forcePotion);
 	}
-	recevoirCoup(forceCoup);
+	String texte=personnage.recevoirCoup(forceCoup);
 	return "Le "+donnerAuteur()+" "+getNom()+" envoie un grand coup de force "+forceCoup+ 
-			" dans la machoire du "+personnage.donnerAuteur()+" "+personnage.getNom();
+			" dans la machoire du "+personnage.donnerAuteur()+" "+personnage.getNom()+"\n"+texte;
 }
 }
 
