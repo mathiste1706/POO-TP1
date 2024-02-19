@@ -18,9 +18,9 @@ public class TestGaulois {
 		Gaulois agecanonix =new Gaulois("Agecanonix", 1);
 		Soldat minus=new Soldat("Minus", 6, Grade.SOLDAT);
 		
-		minus.equiper(Equipement.BOUCLIER);
-		minus.equiper(Equipement.CASQUE);
-		minus.equiper(Equipement.PLASTRON);
+		texte+=minus.equiper(Equipement.BOUCLIER);
+		texte+=minus.equiper(Equipement.CASQUE);
+		texte+=minus.equiper(Equipement.PLASTRON);
 		
 		Druide panoramix=new Druide("Panoramix", 2);
 		texte+=panoramix.concoterPotion(3);
@@ -43,7 +43,6 @@ public class TestGaulois {
 			boolEstATerre=minus.estATerre();
 			
 		}
-		
-		System.out.println(texte);
+		System.out.println(texte);	
 	}
 }

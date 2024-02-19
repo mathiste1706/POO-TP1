@@ -12,6 +12,7 @@ public class Soldat extends Romain {
 		
 	}
 	
+	@Override
 	protected String donnerAuteur() {
 		return grade.toString();
 	}
@@ -19,8 +20,9 @@ public class Soldat extends Romain {
 		return grade;
 	}
 	
-	public void equiper(Equipement equipement) {
+	public String equiper(Equipement equipement) {
 		boolean boolDejaEquipe=false;
+		String texte="";
 		for (int i=0; i<tabEquipement.length;i++) {
 			if (tabEquipement[i]!=null && tabEquipement[i].equals(equipement.getNom())) {
 				boolDejaEquipe=true;
@@ -32,10 +34,11 @@ public class Soldat extends Romain {
 					if (tabEquipement[i]==null) {
 						tabEquipement[i]=equipement;
 						equipe=true;
-						System.out.println("Le "+ grade + " "+getNom()+ " s'equipe avec un "+equipement.getNom());
+						texte="Le "+ grade + " "+getNom()+ " s'equipe avec un "+equipement.getNom()+"\n";
 					}
 			}
 		}
+		return texte;
 	}
 	
 

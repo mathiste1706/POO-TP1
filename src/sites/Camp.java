@@ -1,12 +1,11 @@
 package sites;
-import personnages.Gaulois;
 import personnages.Grade;
 import personnages.Soldat;
 
 public class Camp{
 
 private Soldat centurion;
-private Soldat[] listeSoldats=new Soldat[4];
+private Soldat[] listeSoldats=new Soldat[20];
 
 public Camp(Soldat centurion) {
 	this.centurion=centurion;
@@ -17,6 +16,10 @@ public Camp(Soldat centurion) {
 
 public Soldat getCenturion(){
 	return centurion;
+}
+
+public Soldat[] getListeSoldats() {
+	return listeSoldats;
 }
 
 public void ajouterSoldat(Soldat soldat) {
@@ -39,7 +42,7 @@ public void ajouterSoldat(Soldat soldat) {
 }
 
 public void afficherCamp() {
-	String camp="Le camp dirige par "+centurion.getNom()+ "contient les soldats :\n";
+	String camp="Le camp dirige par "+centurion.getNom()+ " contient les soldats :\n";
 	for (int i=1;i<listeSoldats.length; i++) { 
 		if (listeSoldats[i]!=null) {
 			camp+="- "+listeSoldats[i].getNom()+"\n";;
