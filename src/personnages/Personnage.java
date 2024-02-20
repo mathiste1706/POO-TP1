@@ -17,7 +17,7 @@ public void setForce(int force) {
 	this.force=force;
 }
 
-public Personnage(String nom, int force){
+protected Personnage(String nom, int force){
 	this.nom=nom;
 	this.force=force;
 }
@@ -51,12 +51,14 @@ public String recevoirCoup(int forceCoup) {
 }
 
 public boolean estATerre() {
+	boolean estATerre;
 	if (force>0) {
-		return false;
+		estATerre= false;
 	}
 	else {
-		return true;
+		estATerre= true;
 	}
+	return estATerre;
 	
 }
 }

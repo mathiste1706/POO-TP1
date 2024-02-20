@@ -20,11 +20,11 @@ public class TestBataille {
 		Gaulois cetautomatix = new Gaulois("Cétautomatix", 8);
 		Gaulois ordralfabetix = new Gaulois("Ordralfabétix", 8);
 		
-		//village.ajouterGaulois(agecanonix);
-		//village.ajouterGaulois(assurancetourix);
+		village.ajouterGaulois(agecanonix);
+		village.ajouterGaulois(assurancetourix);
 		village.ajouterGaulois(asterix);
 		village.ajouterGaulois(obelix);
-		//village.ajouterGaulois(cetautomatix);
+		village.ajouterGaulois(cetautomatix);
 		village.ajouterGaulois(ordralfabetix);
 		
 		Soldat chorus = new Soldat("Chorus", 4, Grade.CENTURION);

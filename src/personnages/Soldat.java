@@ -24,7 +24,7 @@ public class Soldat extends Romain {
 		boolean boolDejaEquipe=false;
 		String texte="";
 		for (int i=0; i<tabEquipement.length;i++) {
-			if (tabEquipement[i]!=null && tabEquipement[i].equals(equipement.getNom())) {
+			if (tabEquipement[i]!=null && tabEquipement[i]==equipement) {
 				boolDejaEquipe=true;
 			}
 		}
@@ -46,11 +46,11 @@ public class Soldat extends Romain {
 	public String recevoirCoup(int forceCoup) {
 		int armure=0;
 		int degat=0;
-		String texte="";
+		StringBuilder texte= new StringBuilder();
 		for (int i=0; i<tabEquipement.length;i++) {
 			if (tabEquipement[i]!=null) {
 				armure+=tabEquipement[i].getDefense();
-				texte+="Le "+tabEquipement[i].getNom()+" absorbe "+tabEquipement[i].getDefense()+" du coup\n";
+				texte.append("Le "+tabEquipement[i].getNom()+" absorbe "+tabEquipement[i].getDefense()+" du coup\n");
 			}
 		}
 		
@@ -63,12 +63,12 @@ public class Soldat extends Romain {
 			setForce(0);
 		}
 		if (getForce()>0) {
-			texte+=parler("Aie!");
+			texte.append(parler("Aie!"));
 		}
 		else {
-			texte+=parler("J'abandonne...");
+			texte.append(parler("J'abandonne..."));
 		}
-		return texte;
+		return texte.toString();
 	}
 
 }

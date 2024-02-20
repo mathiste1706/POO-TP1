@@ -10,21 +10,20 @@ public class Conteur {
 		this.nom=nom;
 	}
 	
-	public void raconterHistoire(IBataille bataille, Personnage[] listePersonnage1, Personnage[] listePersonnage2) {
+	public void raconterHistoire(IBataille bataille, Personnage[] listePersonnages1, Personnage[] listePersonnages2) {
 
 		TupleChoixCombattants<Personnage, String> tupleChoixCombattants;
 		
-		
-		String texte="Je suis "+nom+". "
+		StringBuilder texte = new StringBuilder("Je suis "+nom+". "
 				+ "Je vais vous conter une histoire qui se deroule en 50 avant Jesus-Christ, "
-				+ "du temps ou la Gaule est occupee par les Romains.\n\n";
+				+ "du temps ou la Gaule est occupee par les Romains.\n\n");
 		
-		texte+=bataille.decrireContexte(); 
-		tupleChoixCombattants=bataille.choisirCombattants(listePersonnage1, listePersonnage2);
-		texte+=tupleChoixCombattants.getTexte();
-		texte+=bataille.preparerCombat(tupleChoixCombattants.getListePersonage1(), tupleChoixCombattants.getListePersonage2());
-		texte+=bataille.decrireCombat(tupleChoixCombattants.getListePersonage1(), tupleChoixCombattants.getListePersonage2());
-		texte+=bataille.donnerResultat(tupleChoixCombattants.getListePersonage1(), tupleChoixCombattants.getListePersonage2());
+		texte.append(bataille.decrireContexte()); 
+		tupleChoixCombattants=bataille.choisirCombattants(listePersonnages1, listePersonnages2);
+		texte.append(tupleChoixCombattants.getTexte());
+		texte.append(bataille.preparerCombat(tupleChoixCombattants.getListePersonnages1(), tupleChoixCombattants.getListePersonnages2()));
+		texte.append(bataille.decrireCombat(tupleChoixCombattants.getListePersonnages1(), tupleChoixCombattants.getListePersonnages2()));
+		texte.append(bataille.donnerResultat(tupleChoixCombattants.getListePersonnages1(), tupleChoixCombattants.getListePersonnages2()));
 		System.out.println(texte);
 	}
 

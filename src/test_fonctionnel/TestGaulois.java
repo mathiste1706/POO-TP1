@@ -9,7 +9,7 @@ import personnages.Equipement;
 public class TestGaulois {
 
 	public static void main(String[] args) {
-		String texte="";
+		StringBuilder texte=new StringBuilder();
 		
 		Gaulois asterix = new Gaulois("Asterix", 5);
 		Gaulois obelix=new Gaulois("Obelix", 15);
@@ -18,28 +18,27 @@ public class TestGaulois {
 		Gaulois agecanonix =new Gaulois("Agecanonix", 1);
 		Soldat minus=new Soldat("Minus", 6, Grade.SOLDAT);
 		
-		texte+=minus.equiper(Equipement.BOUCLIER);
-		texte+=minus.equiper(Equipement.CASQUE);
-		texte+=minus.equiper(Equipement.PLASTRON);
+		texte.append(minus.equiper(Equipement.BOUCLIER));
+		texte.append(minus.equiper(Equipement.CASQUE));
+		texte.append(minus.equiper(Equipement.PLASTRON));
+		texte.append(minus.equiper(Equipement.PLASTRON));
 		
 		Druide panoramix=new Druide("Panoramix", 2);
-		texte+=panoramix.concoterPotion(3);
-		texte+=panoramix.donnerPotion(asterix);
-		texte+=panoramix.donnerPotion(obelix);
-		texte+=panoramix.donnerPotion(assurancetourix);
-		texte+=panoramix.donnerPotion(abraracourcix);
-		texte+=panoramix.donnerPotion(agecanonix);
+		texte.append(panoramix.concoterPotion(3));
+		texte.append(panoramix.donnerPotion(asterix));
+		texte.append(panoramix.donnerPotion(obelix));
+		texte.append(panoramix.donnerPotion(assurancetourix));
+		texte.append(panoramix.donnerPotion(abraracourcix));
+		texte.append(panoramix.donnerPotion(agecanonix));
 
 		System.out.println(asterix.getNom());
-		texte+=asterix.parler("Bonjour a tous");
-		texte+=minus.parler("UN GAU... UN GAUGAU...");
-		/*for (int i=0; i<2;i++) {
-			minus.recevoirCoup(3);
-		}*/
+		texte.append(asterix.parler("Bonjour a tous"));
+		texte.append(minus.parler("UN GAU... UN GAUGAU..."));
+		
 		
 		boolean boolEstATerre=minus.estATerre();
 		for (int i=0; i<3 && !boolEstATerre;i++) {
-			texte+=asterix.frapper(minus);
+			texte.append(asterix.frapper(minus));
 			boolEstATerre=minus.estATerre();
 			
 		}

@@ -3,26 +3,26 @@ package batailles;
 import personnages.Personnage;
 
 public class TupleChoixCombattants<Personnage, String> {
-	private final Personnage [] listePersonnages1;
-	private final Personnage [] listePersonnages2;
-	private final String texte;
+	private final Personnage [] LISTE_PERSONNAGES1;
+	private final Personnage [] LISTE_PERSONNAGES2;
+	private final String TEXTE;
 
-    public TupleChoixCombattants(Personnage [] listePersonnages1, Personnage [] listePersonnages2, String texte) {
-        this.listePersonnages1 = listePersonnages1;
-        this.listePersonnages2 = listePersonnages2;
-        this.texte=texte;
+    public TupleChoixCombattants(Personnage [] LISTE_PERSONNAGES1, Personnage [] LISTE_PERSONNAGES2, String texte) {
+        this.LISTE_PERSONNAGES1 = LISTE_PERSONNAGES1;
+        this.LISTE_PERSONNAGES2 = LISTE_PERSONNAGES2;
+        this.TEXTE=texte;
     }
     
-    Personnage [] getListePersonage1(){
-    	return listePersonnages1;
+    Personnage [] getListePersonnages1(){
+    	return LISTE_PERSONNAGES1;
     }
     
-    Personnage [] getListePersonage2(){
-    	return listePersonnages2;
+    Personnage [] getListePersonnages2(){
+    	return LISTE_PERSONNAGES2;
     }
     
     String getTexte() {
-    	return texte;
+    	return TEXTE;
     }
 
 }

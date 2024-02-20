@@ -23,16 +23,17 @@ public class Embuscade implements IBataille {
 		
 		TupleChoixCombattants<Personnage, String> tupleChoixCombattants;
 		
-		String texte="";
+		StringBuilder texte=new StringBuilder();
 		Personnage[] listeChoixGaulois=choisirGaulois((Gaulois[]) listeGaulois);
 		
 		Personnage[] listeChoixSoldats=choisirSoldats((Soldat[]) listeSoldats);
 		
 		
-		texte="Il s'agit de "+afficherListePersonnage(listeChoixGaulois)+".\n";
-		texte+="Mais cachés derrière des bosquets se cachent "+afficherListePersonnage(listeChoixSoldats)+".\n\n";
+		texte.append("Il s'agit de "+afficherlistePersonnages(listeChoixGaulois)+".\n");
+		texte.append("Mais cachés derrière des bosquets se cachent "+afficherlistePersonnages(listeChoixSoldats)+".\n\n");
 		
-		tupleChoixCombattants=new TupleChoixCombattants<>(listeChoixGaulois, listeChoixSoldats, texte);
+		
+		tupleChoixCombattants=new TupleChoixCombattants<>(listeChoixGaulois, listeChoixSoldats, texte.toString());
 		
 		
 		return tupleChoixCombattants;
@@ -40,14 +41,14 @@ public class Embuscade implements IBataille {
 
 	@Override
 	public String preparerCombat(Personnage[] listeGaulois, Personnage[] listeSoldats) {
-		String texte="";
+		StringBuilder texte=new StringBuilder();
 		for (int i=0; i<listeSoldats.length;i++) {
-			texte+=((Soldat) listeSoldats[i]).equiper(Equipement.BOUCLIER);
-			texte+=((Soldat) listeSoldats[i]).equiper(Equipement.CASQUE);
-			texte+=((Soldat) listeSoldats[i]).equiper(Equipement.PLASTRON);
-			texte+="\n";
+			texte.append(((Soldat) listeSoldats[i]).equiper(Equipement.BOUCLIER));
+			texte.append(((Soldat) listeSoldats[i]).equiper(Equipement.CASQUE));
+			texte.append(((Soldat) listeSoldats[i]).equiper(Equipement.PLASTRON));
+			texte.append("\n");
 		}
-		return texte;
+		return texte.toString();
 	}
 
 	@Override
@@ -55,7 +56,7 @@ public class Embuscade implements IBataille {
 		boolean finCombat=false;
 		int choixGaulois=0;
 		int choixSoldat=0;
-		String texte="";
+		StringBuilder texte=new StringBuilder();
 		
 		while(!finCombat) {
 			
@@ -68,8 +69,10 @@ public class Embuscade implements IBataille {
 				if (choixSoldat==listeSoldats.length) {
 					finCombat=true;
 				}
-				else {
-					texte+=listeGaulois[j].frapper(listeSoldats[choixSoldat]);
+				else if (!listeGaulois[j].estATerre()) {
+					texte.append(listeGaulois[j].frapper(listeSoldats[choixSoldat]));
+					texte.append("\n");
+					
 				}
 			}
 			
@@ -79,33 +82,34 @@ public class Embuscade implements IBataille {
 					choixGaulois++;
 				}
 				
-				if (choixSoldat==listeSoldats.length) {
+				if (choixGaulois==listeGaulois.length) {
 					finCombat=true;
 				}
-				else {
-					texte+=listeGaulois[j].frapper(listeSoldats[choixGaulois]);
+				else if (!listeSoldats[j].estATerre()){
+					texte.append(listeSoldats[j].frapper(listeGaulois[choixGaulois]));
+					texte.append("\n");
 				}
 			}
 		}
-		return texte;
+		return texte.toString();
 	}
 
 	@Override
 	public String donnerResultat(Personnage[] listeGaulois, Personnage[] listeSoldats) {
-		String texte="";
+		StringBuilder texte=new StringBuilder();
 		boolean victoireGaulois=false;
 		for (int i=0; i<listeGaulois.length && !victoireGaulois ;i++) {
 			victoireGaulois=!(listeGaulois[i].estATerre());
 		}
 		
 		if (victoireGaulois) {
-			texte="Les gaulois "+afficherListePersonnage(listeGaulois);
+			texte.append("Les gaulois "+afficherlistePersonnages(listeGaulois));
 		}
 		else {
-			texte="Les soldats romains "+afficherListePersonnage(listeGaulois);
+			texte.append("Les soldats romains "+afficherlistePersonnages(listeSoldats));
 		}
-		texte+=" sont victorieux!\n";
-		return texte;
+		texte.append(" sont victorieux!\n");
+		return texte.toString();
 	}
 	
 	
@@ -161,24 +165,24 @@ public class Embuscade implements IBataille {
 	return listeChoisirSoldats;
 	}
 	
-	private String afficherListePersonnage(Personnage [] listePersonnage) {
+	private String afficherlistePersonnages(Personnage [] listePersonnages) {
 		
-		String texte="";
+		StringBuilder texte=new StringBuilder();
 		
-		for (int i=0; i<listePersonnage.length;i++) {
-			if (i<listePersonnage.length-2) {
-				texte+=listePersonnage[i].getNom()+", ";
+		for (int i=0; i<listePersonnages.length;i++) {
+			if (i<listePersonnages.length-2) {
+				texte.append(listePersonnages[i].getNom()+", ");
 			}
-			else if (i<listePersonnage.length-1) {
-				texte+=listePersonnage[i].getNom();
+			else if (i<listePersonnages.length-1) {
+				texte.append(listePersonnages[i].getNom());
 			}
 			
 			else {
-				texte+=" et "+listePersonnage[i].getNom();
+				texte.append(" et "+listePersonnages[i].getNom());
 			}
 		}
 		
 		
-		return texte;
+		return texte.toString();
 	}
 }

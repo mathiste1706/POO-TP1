@@ -5,9 +5,9 @@ import personnages.Personnage;
 public interface IBataille {
 	
 	String decrireContexte();
-	TupleChoixCombattants<Personnage, String> choisirCombattants(Personnage[] listePersonnage1, Personnage[] listePersonnage2);
-	String preparerCombat(Personnage[] listePersonnage1, Personnage[] listePersonnage2);
-	String decrireCombat(Personnage[] listePersonnage1, Personnage[] listePersonnage2);
-	String donnerResultat(Personnage[] listePersonnage1, Personnage[] listePersonnage2);
+	TupleChoixCombattants<Personnage, String> choisirCombattants(Personnage[] listePersonnages1, Personnage[] listePersonnages2);
+	String preparerCombat(Personnage[] listePersonnages1, Personnage[] listePersonnages2);
+	String decrireCombat(Personnage[] listePersonnages1, Personnage[] listePersonnages2);
+	String donnerResultat(Personnage[] listePersonnages1, Personnage[] listePersonnages2);
 	
 }
