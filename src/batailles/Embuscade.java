@@ -3,6 +3,7 @@ package batailles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import personnages.Equipement;
 import personnages.Gaulois;
@@ -54,43 +55,22 @@ public class Embuscade implements IBataille {
 	@Override
 	public String decrireCombat(Personnage[] listeGaulois, Personnage[] listeSoldats) {
 		boolean finCombat=false;
-		int choixGaulois=0;
-		int choixSoldat=0;
 		StringBuilder texte=new StringBuilder();
 		
 		while(!finCombat) {
 			
+			Random random=new Random();
+			
 			// Tour des Gaulois
-			for (int j=0; j<listeGaulois.length && !finCombat;j++) {
-				
-				if (listeSoldats[choixSoldat].estATerre()) {
-					choixSoldat++;
-				}
-				if (choixSoldat==listeSoldats.length) {
-					finCombat=true;
-				}
-				else if (!listeGaulois[j].estATerre()) {
-					texte.append(listeGaulois[j].frapper(listeSoldats[choixSoldat]));
-					texte.append("\n");
-					
-				}
-			}
+			finCombat=tourPersonnages(random, listeGaulois, listeSoldats, texte);
 			
 			// Tour des Soldats
-			for (int j=0; j<listeSoldats.length && !finCombat;j++) {
-				if (listeGaulois[choixGaulois].estATerre()) {
-					choixGaulois++;
-				}
-				
-				if (choixGaulois==listeGaulois.length) {
-					finCombat=true;
-				}
-				else if (!listeSoldats[j].estATerre()){
-					texte.append(listeSoldats[j].frapper(listeGaulois[choixGaulois]));
-					texte.append("\n");
-				}
+			if (!finCombat) {
+				finCombat=tourPersonnages(random, listeSoldats, listeGaulois, texte);
 			}
-		}
+			
+			}
+			
 		return texte.toString();
 	}
 
@@ -184,5 +164,42 @@ public class Embuscade implements IBataille {
 		
 		
 		return texte.toString();
+	}
+	
+	private boolean tourPersonnages(Random random, Personnage[] listeAllies, Personnage[] listeEnnemis, StringBuilder texte) {
+		
+		boolean finCombat=false;
+		boolean ennemisATerre;
+		int choixEnnemi=0;
+		
+		for (int j=0; j<listeAllies.length && !finCombat;j++) {
+			
+			choixEnnemi=random.nextInt(listeEnnemis.length-1);
+			ennemisATerre=true;
+			
+			
+			for (int i=0; i<listeEnnemis.length && ennemisATerre;i++) {
+				
+				if (!listeEnnemis[choixEnnemi].estATerre()) {
+					ennemisATerre=false;
+				}
+				else {
+					choixEnnemi=(choixEnnemi+1)%listeEnnemis.length;
+				}
+			}
+			
+			if (!ennemisATerre) {
+			
+				if (!listeAllies[j].estATerre()) {
+					texte.append(listeAllies[j].frapper(listeEnnemis[choixEnnemi]));
+					texte.append("\n");
+				}	
+			}
+			else {
+				finCombat=true;
+			}
+			
+		}
+		return finCombat;
 	}
 }
