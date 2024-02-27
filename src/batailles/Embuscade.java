@@ -1,8 +1,6 @@
 package batailles;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+
 import java.util.Random;
 
 import personnages.Equipement;
@@ -13,6 +11,8 @@ import personnages.Soldat;
 
 
 public class Embuscade implements IBataille {
+	
+	Random random=new Random();
 
 	@Override
 	public String decrireContexte() {
@@ -59,7 +59,6 @@ public class Embuscade implements IBataille {
 		
 		while(!finCombat) {
 			
-			Random random=new Random();
 			
 			// Tour des Gaulois
 			finCombat=tourPersonnages(random, listeGaulois, listeSoldats, texte);
@@ -96,23 +95,19 @@ public class Embuscade implements IBataille {
 	
 // Choisi 4 gaulois du village de maniere aleatoire 
 	private Gaulois[] choisirGaulois(Gaulois [] listeGaulois) {
-	
+		
 		Gaulois [] listeChoisirGaulois=new Gaulois[4];
 		
+		int choix;
+		int tailleGaulois=listeGaulois.length;
+		
 		// Permet de choisir un nombre aleatoire unique dans un intervalle
-		List<Integer> listeRandom=new ArrayList<>();
-		        
-		for (int i = 0; i < listeGaulois.length; i++) {
-			if (listeGaulois[i]!=null) {
-				listeRandom.add(i);
-			}
-		 }
-		Collections.shuffle(listeRandom);
-		
-		
+		      
 		for (int i=0; i<listeChoisirGaulois.length;i++) {
-			listeChoisirGaulois[i]=listeGaulois[listeRandom.get(0)];
-			listeRandom.remove(0);
+			choix=random.nextInt(tailleGaulois-1);
+			listeChoisirGaulois[i]=listeGaulois[choix];
+			listeGaulois[choix]=listeGaulois[tailleGaulois-1];
+			tailleGaulois--;
 		}
 		
 		
@@ -123,20 +118,27 @@ public class Embuscade implements IBataille {
 	private Soldat[] choisirSoldats(Soldat [] listeSoldat) {
 		
 		Soldat [] listeChoisirSoldats=new Soldat[2];
-		List<Integer> listeRandom=new ArrayList<>();
+		int[] listeIndexGradeSoldat=new int[listeSoldat.length];
 		
-		for (int i=0; i<listeSoldat.length; i++) {
-			if (listeSoldat[i]!=null && (listeSoldat[i]).getGrade()==Grade.SOLDAT) {
-				listeRandom.add(i);
+		int choix;
+		int tailleGradeSoldats=0;
+		
+		// Selectionner les soldats de grade Soldat
+		for (int i=0; i<listeSoldat.length;i++) {
+			
+			if (listeSoldat[i]!=null && listeSoldat[i].getGrade()==Grade.SOLDAT) {
+			listeIndexGradeSoldat[tailleGradeSoldats]=i;
+			tailleGradeSoldats++;
 			}
 		}
 		
-		Collections.shuffle(listeRandom);
 		
 		for (int i=0; i<listeChoisirSoldats.length;i++) {
 			
-			listeChoisirSoldats[i]=listeSoldat[listeRandom.get(0)];
-			listeRandom.remove(0);
+			choix=random.nextInt(tailleGradeSoldats-1);
+			listeChoisirSoldats[i]=listeSoldat[listeIndexGradeSoldat[choix]];
+			listeIndexGradeSoldat[choix]=listeIndexGradeSoldat[tailleGradeSoldats-1];
+			tailleGradeSoldats--;
 		}
 				
 				
