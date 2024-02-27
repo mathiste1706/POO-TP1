@@ -132,7 +132,7 @@ public class Embuscade implements IBataille {
 			}
 		}
 		
-		
+		// Selectionner aléatoirement
 		for (int i=0; i<listeChoisirSoldats.length;i++) {
 			
 			choix=random.nextInt(tailleGradeSoldats-1);
