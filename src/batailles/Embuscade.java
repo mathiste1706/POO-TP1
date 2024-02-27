@@ -13,6 +13,17 @@ import personnages.Soldat;
 
 
 public class Embuscade implements IBataille {
+	private Gaulois[] listeChoixGaulois=new Gaulois[4];
+	private Soldat[] listeChoixSoldats=new Soldat[4];
+	
+	public Gaulois[] getListeChoixGaulois() {
+		return listeChoixGaulois;
+	}
+	
+	public Soldat[] getListeChoixSoldats() {
+		return listeChoixSoldats;
+	}
+	
 
 	@Override
 	public String decrireContexte() {
@@ -20,24 +31,19 @@ public class Embuscade implements IBataille {
 	}
 
 	@Override
-	public TupleChoixCombattants<Personnage, String> choisirCombattants(Personnage[] listeGaulois, Personnage[] listeSoldats) {
+	public String choisirCombattants(final Personnage[] listeGaulois, final Personnage[] listeSoldats) {
 		
-		TupleChoixCombattants<Personnage, String> tupleChoixCombattants;
 		
 		StringBuilder texte=new StringBuilder();
-		Personnage[] listeChoixGaulois=choisirGaulois((Gaulois[]) listeGaulois);
-		
-		Personnage[] listeChoixSoldats=choisirSoldats((Soldat[]) listeSoldats);
+		listeChoixGaulois=choisirGaulois((Gaulois[]) listeGaulois);
+		listeChoixSoldats=choisirSoldats((Soldat[]) listeSoldats);
 		
 		
 		texte.append("Il s'agit de "+afficherlistePersonnages(listeChoixGaulois)+".\n");
 		texte.append("Mais cachés derrière des bosquets se cachent "+afficherlistePersonnages(listeChoixSoldats)+".\n\n");
 		
 		
-		tupleChoixCombattants=new TupleChoixCombattants<>(listeChoixGaulois, listeChoixSoldats, texte.toString());
-		
-		
-		return tupleChoixCombattants;
+		return texte.toString();
 	}
 
 	@Override
