@@ -15,15 +15,15 @@ public class TestBataille {
 		
 		Gaulois agecanonix = new Gaulois("Agecanonix", 1);
 		Gaulois assurancetourix = new Gaulois("Assurancetourix", 2);
-		Gaulois asterix = new Gaulois("Astérix", 5);
+		Gaulois asterix = new Gaulois("Asterix", 5);
 		Gaulois obelix = new Gaulois("Obelix", 15);
-		Gaulois cetautomatix = new Gaulois("Cétautomatix", 8);
-		Gaulois ordralfabetix = new Gaulois("Ordralfabétix", 8);
+		Gaulois cetautomatix = new Gaulois("Cetautomatix", 8);
+		Gaulois ordralfabetix = new Gaulois("Ordralfabetix", 8);
 		
 		village.ajouterGaulois(agecanonix);
 		village.ajouterGaulois(assurancetourix);
 		village.ajouterGaulois(asterix);
-		village.ajouterGaulois(obelix);
+		//village.ajouterGaulois(obelix);
 		village.ajouterGaulois(cetautomatix);
 		village.ajouterGaulois(ordralfabetix);
 		
@@ -45,7 +45,7 @@ public class TestBataille {
 		camp.ajouterSoldat(quintilius);
 		
 		Conteur goscinny=new Conteur("Goscinny");
-		goscinny.raconterHistoire(new Embuscade(), village.getListeGaulois(), camp.getListeSoldats());
+		goscinny.raconterHistoire(new Embuscade(village, camp), village.getListeGaulois(), camp.getListeSoldats());
 
 	}
 

@@ -8,86 +8,86 @@ import personnages.Gaulois;
 import personnages.Grade;
 import personnages.Personnage;
 import personnages.Soldat;
-
+import sites.*;
 
 public class Embuscade implements IBataille {
 	
 	Random random=new Random();
+	private Village village;
+	private Camp camp;
+	private Gaulois[] listeChoixGaulois;
+	private Soldat[] listeChoixSoldats;
+	
+	public Embuscade(Village village, Camp camp) {
+		this.village=village;
+		this.camp=camp;
+	}
 
 	@Override
 	public String decrireContexte() {
-		return "Dans une sombre for√™t dans un coin recul√© de la Gaule, quatre comparses se prom√®nent.\n";
+		return "Dans une sombre foret dans un coin recule de la Gaule, quatre comparses se promenent.\n";
 	}
 
 	@Override
-	public TupleChoixCombattants<Personnage, String> choisirCombattants(Personnage[] listeGaulois, Personnage[] listeSoldats) {
+	public String choisirCombattants() {
 		
-		TupleChoixCombattants<Personnage, String> tupleChoixCombattants;
 		
 		StringBuilder texte=new StringBuilder();
-		Personnage[] listeChoixGaulois=choisirGaulois((Gaulois[]) listeGaulois);
+		listeChoixGaulois=choisirGaulois(village.getListeGaulois());
 		
-		Personnage[] listeChoixSoldats=choisirSoldats((Soldat[]) listeSoldats);
+		listeChoixSoldats=choisirSoldats(camp.getListeSoldats());
 		
 		
 		texte.append("Il s'agit de "+afficherlistePersonnages(listeChoixGaulois)+".\n");
-		texte.append("Mais cach√©s derri√®re des bosquets se cachent "+afficherlistePersonnages(listeChoixSoldats)+".\n\n");
+		texte.append("Mais caches derriere des bosquets se cachent "+afficherlistePersonnages(listeChoixSoldats)+".\n\n");
 		
 		
-		tupleChoixCombattants=new TupleChoixCombattants<>(listeChoixGaulois, listeChoixSoldats, texte.toString());
-		
-		
-		return tupleChoixCombattants;
+		return texte.toString();
 	}
 
 	@Override
-	public String preparerCombat(Personnage[] listeGaulois, Personnage[] listeSoldats) {
+	public String preparerCombat() {
 		StringBuilder texte=new StringBuilder();
-		for (int i=0; i<listeSoldats.length;i++) {
-			texte.append(((Soldat) listeSoldats[i]).equiper(Equipement.BOUCLIER));
-			texte.append(((Soldat) listeSoldats[i]).equiper(Equipement.CASQUE));
-			texte.append(((Soldat) listeSoldats[i]).equiper(Equipement.PLASTRON));
+		for (int i=0; i<listeChoixSoldats.length;i++) {
+			texte.append(listeChoixSoldats[i].equiper(Equipement.BOUCLIER));
+			texte.append(listeChoixSoldats[i].equiper(Equipement.CASQUE));
+			texte.append(listeChoixSoldats[i].equiper(Equipement.PLASTRON));
 			texte.append("\n");
 		}
 		return texte.toString();
 	}
 
 	@Override
-	public String decrireCombat(Personnage[] listeGaulois, Personnage[] listeSoldats) {
+	public String decrireCombat() {
 		boolean finCombat=false;
 		StringBuilder texte=new StringBuilder();
 		
 		while(!finCombat) {
 			
 			
-			// Tour des Gaulois
-			finCombat=tourPersonnages(random, listeGaulois, listeSoldats, texte);
-			
-			// Tour des Soldats
-			if (!finCombat) {
-				finCombat=tourPersonnages(random, listeSoldats, listeGaulois, texte);
-			}
-			
-			}
+			finCombat=tourPersonnages(listeChoixGaulois, listeChoixSoldats, texte);
+		}
 			
 		return texte.toString();
 	}
 
 	@Override
-	public String donnerResultat(Personnage[] listeGaulois, Personnage[] listeSoldats) {
+	public String donnerResultat() {
 		StringBuilder texte=new StringBuilder();
 		boolean victoireGaulois=false;
-		for (int i=0; i<listeGaulois.length && !victoireGaulois ;i++) {
-			victoireGaulois=!(listeGaulois[i].estATerre());
+		for (int i=0; i<listeChoixGaulois.length && !victoireGaulois ;i++) {
+			victoireGaulois=!(listeChoixGaulois[i].estATerre());
 		}
 		
 		if (victoireGaulois) {
-			texte.append("Les gaulois "+afficherlistePersonnages(listeGaulois));
+			texte.append("MalgrÈ cette sournoise attaque, nos promeneurs s'en sont sortis indemnes. "
+					+ "Ils pouvaient compter sur la force de "
+					+afficherlistePersonnages(listeChoixGaulois));
 		}
 		else {
-			texte.append("Les soldats romains "+afficherlistePersonnages(listeSoldats));
+			texte.append("L'attaque fut tellement rapide et inattendue que nos malheureux gaulois n'ont pas eu le temps de rÈagir. "
+					+ "Ils furent ligotÈs et emmenÈs dans le camp de " +camp.getCenturion().getNom()+".");
 		}
-		texte.append(" sont victorieux!\n");
 		return texte.toString();
 	}
 	
@@ -132,7 +132,7 @@ public class Embuscade implements IBataille {
 			}
 		}
 		
-		// Selectionner al√©atoirement
+		// Selectionner aleatoirement
 		for (int i=0; i<listeChoisirSoldats.length;i++) {
 			
 			choix=random.nextInt(tailleGradeSoldats-1);
@@ -168,40 +168,65 @@ public class Embuscade implements IBataille {
 		return texte.toString();
 	}
 	
-	private boolean tourPersonnages(Random random, Personnage[] listeAllies, Personnage[] listeEnnemis, StringBuilder texte) {
+	private int selection(Personnage[] listePersonnage, int nbCombattants) {
+		int choix;
+		choix=random.nextInt(nbCombattants);
+		return choix;
+	}
+	
+	private boolean tourPersonnages( Personnage[] listeGaulois, Personnage[] listeSoldats, StringBuilder texte) {
 		
 		boolean finCombat=false;
-		boolean ennemisATerre;
-		int choixEnnemi=0;
+		int choixGaulois=0;
+		int choixSoldat=0;
+		Personnage frappe;
+		Personnage estFrapee;
+		int nbCombattants=0;
+		Gaulois [] listeGauloisSontEnVie=new Gaulois[listeGaulois.length];
+		Soldat[] listeSoldatsSontEnVie=new Soldat[listeSoldats.length];
 		
-		for (int j=0; j<listeAllies.length && !finCombat;j++) {
+		//Selection Gaulois
+		for (int i=0; i<listeGaulois.length;i++) {
+			if (!(listeGaulois[i].estATerre())) {
+				listeGauloisSontEnVie[nbCombattants]=(Gaulois) listeGaulois[i];
+				nbCombattants++;
+			}
+		}
+		if (nbCombattants==0) {
+			finCombat=true;
+		}
+		
+		if (!finCombat) {
+			choixGaulois=selection(listeGauloisSontEnVie, nbCombattants);
 			
-			choixEnnemi=random.nextInt(listeEnnemis.length-1);
-			ennemisATerre=true;
-			
-			
-			for (int i=0; i<listeEnnemis.length && ennemisATerre;i++) {
-				
-				if (!listeEnnemis[choixEnnemi].estATerre()) {
-					ennemisATerre=false;
-				}
-				else {
-					choixEnnemi=(choixEnnemi+1)%listeEnnemis.length;
+			//Selection Soldats
+			nbCombattants=0;
+			for (int i=0; i<listeSoldats.length;i++) {
+				if (!listeSoldats[i].estATerre()) {
+					listeSoldatsSontEnVie[nbCombattants]=(Soldat) listeSoldats[i];
+					nbCombattants++;
 				}
 			}
-			
-			if (!ennemisATerre) {
-			
-				if (!listeAllies[j].estATerre()) {
-					texte.append(listeAllies[j].frapper(listeEnnemis[choixEnnemi]));
-					texte.append("\n");
-				}	
-			}
-			else {
+			if (nbCombattants==0) {
 				finCombat=true;
 			}
 			
+			if (!finCombat) {
+			choixSoldat=selection(listeSoldatsSontEnVie, nbCombattants);
+			
+				if (random.nextInt(2)==0) {
+					frappe=listeGauloisSontEnVie[choixGaulois];
+					estFrapee=listeSoldatsSontEnVie[choixSoldat];
+				}
+				else {
+					frappe=listeSoldatsSontEnVie[choixSoldat];
+					estFrapee=listeGauloisSontEnVie[choixGaulois];
+				}
+					
+				texte.append(frappe.frapper(estFrapee)+"\n");
+			}
 		}
+			
 		return finCombat;
 	}
-}
+	}
